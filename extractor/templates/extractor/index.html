@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1 class="display-4">File data extractor</h1>
+        <p class="lead">This is a file analyzing app.</p>
+        <p class="lead">Select a file to analyze.</p>
+    </div>
+    {{ message }}
+    {% if form %}
+        <div class="card border-0">
+            <form action="/get-file" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="form_control_headers_select">File</label>
+                            <select class="form-control" id="selected_file"
+                                    name="selected_file">
+                                {% for file in files %}
+                                    <option value={{ file }}>{{ file }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <input type="submit" class="btn btn-primary" value="Submit"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
